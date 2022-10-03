@@ -1,10 +1,14 @@
 import { createContext, useContext, useState } from 'react';
+// import { toast } from 'react-toastify';
+import * as authService from '../api/authApi';
+import { addAccessToken } from '../utils/localStorage';
 
 const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRegis, setIsOpenRegis] = useState(false);
+  const [user, setUser] = useState(null);
 
   const closeLogin = () => {
     setIsOpen(false);
@@ -23,6 +27,22 @@ function AuthContextProvider({ children }) {
     setIsOpenRegis(true);
   };
 
+  const userLogout = () => {
+    setUser(null);
+  };
+
+  const register = async (input) => {
+    const res = await authService.register(input);
+    setUser(true);
+    addAccessToken(res.data.token);
+  };
+
+  const login = async (input) => {
+    const res = await authService.login(input);
+    setUser(true);
+    addAccessToken(res.data.token);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -31,7 +51,11 @@ function AuthContextProvider({ children }) {
         closeLogin,
         openLogin,
         closeRegis,
-        openRegis
+        openRegis,
+        user,
+        register,
+        login,
+        userLogout
       }}
     >
       {children}
@@ -39,11 +63,11 @@ function AuthContextProvider({ children }) {
   );
 }
 
-export default AuthContextProvider;
-
 export const useAuth = () => {
   return useContext(AuthContext);
 };
+
+export default AuthContextProvider;
 
 // import { createContext, useContext, useState } from 'react';
 
