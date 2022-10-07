@@ -17,9 +17,8 @@ function ModalLogin() {
     e.preventDefault();
     try {
       await login(input);
-      toast.success('success login');
+      toast.success('login success');
     } catch (err) {
-      // toast.error(err.response.data.message);
       toast.error('phone number or email or password  is invalid');
     }
   };

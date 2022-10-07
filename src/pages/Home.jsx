@@ -14,7 +14,7 @@ function Home() {
       </div>
 
       <div className="justify-items-center flex flex-wrap gap-40">
-        <div to="/">
+        <div>
           <img
             src={kaiARoi}
             alt="mama"

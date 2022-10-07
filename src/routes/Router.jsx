@@ -3,18 +3,34 @@ import Layout from '../pages/Layout';
 import Home from '../pages/Home';
 import { useAuth } from '../contexts/AuthContext';
 import Menu from '../pages/Menu';
+import EditMenu from '../pages/adminPages/EditMenu';
+import PageNotfound from '../pages/PageNotfound';
 
 function Router() {
   const { user } = useAuth();
+  // console.log(user);
+
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        {user ? (
+      {user ? (
+        <Route path="/" element={<Layout />}>
           <Route path="/" element={<Menu />} />
-        ) : (
+          {user.role === 'admin' ? (
+            <>
+              <Route path="/editmenu" element={<EditMenu />} />
+            </>
+          ) : (
+            <>
+              <Route path="*" element={<PageNotfound />} />
+            </>
+          )}
+        </Route>
+      ) : (
+        <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
-        )}
-      </Route>
+          <Route path="*" element={<PageNotfound />} />
+        </Route>
+      )}
     </Routes>
   );
 }

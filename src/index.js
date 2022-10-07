@@ -1,19 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import '@fortawesome/fontawesome-free/css/all.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthContextProvider from './contexts/AuthContext';
+import MenuContextProvider from './contexts/MenuContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <AuthContextProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <MenuContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </MenuContextProvider>
   </AuthContextProvider>
   // </React.StrictMode>
 );

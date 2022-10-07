@@ -3,7 +3,7 @@ import Navbar from '../header/Navbar';
 
 function Layout() {
   return (
-    <div className="h-full">
+    <div className="w-screen">
       <Navbar />
       <Outlet />
     </div>

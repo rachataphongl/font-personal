@@ -1,7 +1,6 @@
-import { createContext, useContext, useState } from 'react';
-// import { toast } from 'react-toastify';
+import { createContext, useContext, useEffect, useState } from 'react';
 import * as authService from '../api/authApi';
-import { addAccessToken } from '../utils/localStorage';
+import { addAccessToken, removeToken } from '../utils/localStorage';
 
 const AuthContext = createContext();
 
@@ -9,6 +8,19 @@ function AuthContextProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRegis, setIsOpenRegis] = useState(false);
   const [user, setUser] = useState(null);
+  // const [isAdmin, setIsAdmin] = useState(null);
+
+  useEffect(() => {
+    try {
+      getMe();
+    } catch (err) {}
+  }, []);
+
+  const getMe = async () => {
+    const res = await authService.getMe();
+    setUser(res.data.user);
+  };
+  console.log(user);
 
   const closeLogin = () => {
     setIsOpen(false);
@@ -29,17 +41,17 @@ function AuthContextProvider({ children }) {
 
   const userLogout = () => {
     setUser(null);
+    removeToken();
   };
 
   const register = async (input) => {
     const res = await authService.register(input);
-    setUser(true);
+    getMe();
     addAccessToken(res.data.token);
   };
-
   const login = async (input) => {
     const res = await authService.login(input);
-    setUser(true);
+    getMe();
     addAccessToken(res.data.token);
   };
 
@@ -52,10 +64,10 @@ function AuthContextProvider({ children }) {
         openLogin,
         closeRegis,
         openRegis,
-        user,
-        register,
         login,
-        userLogout
+        register,
+        userLogout,
+        user
       }}
     >
       {children}

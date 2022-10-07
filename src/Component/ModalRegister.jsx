@@ -86,7 +86,7 @@ function ModalRegister() {
               <input
                 type="text"
                 className="w-72  h-[2rem] rounded-[15px] px-2 bg-gray-200"
-                value={input.userName}
+                value={input.username}
                 name="username"
                 onChange={handleChangeInput}
               />
