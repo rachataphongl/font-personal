@@ -8,7 +8,6 @@ function AuthContextProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRegis, setIsOpenRegis] = useState(false);
   const [user, setUser] = useState(null);
-  // const [isAdmin, setIsAdmin] = useState(null);
 
   useEffect(() => {
     try {
@@ -20,11 +19,10 @@ function AuthContextProvider({ children }) {
     const res = await authService.getMe();
     setUser(res.data.user);
   };
-  console.log(user);
+  // console.log(user);
 
   const closeLogin = () => {
     setIsOpen(false);
-    // console.log('first');
   };
 
   const openLogin = () => {

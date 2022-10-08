@@ -5,8 +5,7 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 function ModalEditMenu({ id }) {
-  const { closeEditModal, editMenu, handleEdit, sendUpdateMenu, setOpenEdit } =
-    useMenu();
+  const { closeEditModal, editMenu, sendUpdateMenu, setOpenEdit } = useMenu();
   const [name, setName] = useState(editMenu?.name);
   const [description, setDescription] = useState(editMenu?.description);
   const [price, setPrice] = useState(editMenu?.price);

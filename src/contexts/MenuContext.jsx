@@ -8,6 +8,7 @@ function MenuContextProvider({ children }) {
   const [openEdit, setOpenEdit] = useState(false);
   const [closeEdit, setCloseEdit] = useState(false);
   const [editMenu, setEditMenu] = useState({});
+  const [closeButtonEdit, setCloseButtonEdit] = useState(false);
 
   useEffect(() => {
     try {
@@ -38,13 +39,13 @@ function MenuContextProvider({ children }) {
   // const formData = new FormData
 
   const deleteMenu = async (menuId) => {
-    const res = await postSerVice.deleteMenu(menuId);
+    await postSerVice.deleteMenu(menuId);
     getMenu();
   };
 
   const sendUpdateMenu = async (id, input) => {
     try {
-      const res = await postSerVice.updateMenu(id, input);
+      postSerVice.updateMenu(id, input);
       getMenu();
     } catch (err) {
       toast.err('nonononononooooooooooo');
@@ -64,7 +65,9 @@ function MenuContextProvider({ children }) {
         editMenu,
         openEdit,
         sendUpdateMenu,
-        setOpenEdit
+        setOpenEdit,
+        closeButtonEdit,
+        setCloseButtonEdit
       }}
     >
       {children}

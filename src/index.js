@@ -8,15 +8,18 @@ import { BrowserRouter } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthContextProvider from './contexts/AuthContext';
 import MenuContextProvider from './contexts/MenuContext';
+import CartContextProvider from './contexts/CartContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <AuthContextProvider>
     <MenuContextProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <CartContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </CartContextProvider>
     </MenuContextProvider>
   </AuthContextProvider>
   // </React.StrictMode>

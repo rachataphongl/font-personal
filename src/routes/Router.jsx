@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import Menu from '../pages/Menu';
 import EditMenu from '../pages/adminPages/EditMenu';
 import PageNotfound from '../pages/PageNotfound';
+import Cart from '../pages/Cart';
 
 function Router() {
   const { user } = useAuth();
@@ -15,6 +16,7 @@ function Router() {
       {user ? (
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Menu />} />
+          <Route path="shoppingcart" element={<Cart />} />
           {user.role === 'admin' ? (
             <>
               <Route path="/editmenu" element={<EditMenu />} />

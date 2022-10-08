@@ -1,17 +1,21 @@
-import { useAuth } from '../contexts/AuthContext';
 import { useMenu } from '../contexts/MenuContext';
+import { createCart } from '../api/cartApi';
 
 function Menu() {
-  const { menu } = useMenu();
-  const { user } = useAuth();
+  const { menu, getMenu } = useMenu();
+
+  const handleAddCart = async (itemId) => {
+    await createCart(itemId);
+    getMenu();
+  };
 
   return (
-    <div className="bg-light-kai h-100 flex p-[17vh]  w-screen items-center justify-items-start flex-col  text-white">
-      <div className="flex items-start  gap-20">
-        <div className="grid grid-cols-2">
+    <div className="bg-light-kai h-100 flex p-[20vh]  w-screen items-center justify-items-start flex-col  text-white">
+      <div className="flex items-start justify-around  gap-20  px-8">
+        <div className="flex flex-wrap w-full justify-center  gap-x-5 ">
           {menu.map((item, idx) => (
             <div
-              className="bg-menu w-[600px] h-[150px] rounded-[25px] flex items-center justify-between p-3 mt-3"
+              className="bg-menu w-[500px] h-[150px] rounded-[25px] flex items-center justify-between p-3 mt-3"
               key={idx}
               itemID={item.id}
             >
@@ -32,7 +36,10 @@ function Menu() {
               </div>
 
               <div>
-                <button className="text-[1.5rem] text-white bg-kai h-[3rem] w-20 rounded-[15px]  font-['Aclonica'] hover:bg-dark-kai">
+                <button
+                  className="text-[1.5rem] text-white bg-kai h-[3rem] w-20 rounded-[15px]  font-['Aclonica'] hover:bg-dark-kai"
+                  onClick={() => handleAddCart({ menuId: item.id })}
+                >
                   +
                 </button>
               </div>
