@@ -1,23 +1,67 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import * as menuService from '../api/postApi';
 import { useMenu } from '../contexts/MenuContext';
+import { toast } from 'react-toastify';
+// import * as menuService from '../api/postApi';
+import { Link } from 'react-router-dom';
 
-function ModalCreateMenu() {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [imagePath, setImagePath] = useState(null);
-  const { closeEditModal, getMenu } = useMenu();
+function ModalEditMenu({ id }) {
+  const { closeEditModal, editMenu, handleEdit, sendUpdateMenu, setOpenEdit } =
+    useMenu();
+  const [name, setName] = useState(editMenu?.name);
+  const [description, setDescription] = useState(editMenu?.description);
+  const [price, setPrice] = useState(editMenu?.price);
+  const [imagePath, setImagePath] = useState(editMenu?.imagePath);
   const inputEl = useRef();
 
-  const handleSubmit = async (e) => {
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const formData = new FormData();
+  //     if (!name && !description && !price) {
+  //       return toast.error('name description price and image is required');
+  //     }
+
+  //     if (name) {
+  //       formData.append('name', name);
+  //     }
+
+  //     if (description) {
+  //       formData.append('description', description);
+  //     }
+
+  //     if (price) {
+  //       formData.append('price', price);
+  //     }
+
+  //     if (imagePath) {
+  //       formData.append('image', imagePath);
+  //     }
+
+  //     await menuService.createMenu(formData);
+  //     toast.success('create success');
+  //     setName('');
+  //     setDescription('');
+  //     setPrice('');
+  //     setImagePath(null);
+  //   } catch (err) {
+  //     return toast.error(err.response?.data.message);
+  //   }
+  // };
+
+  const updateMenu = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      if (!name && !description && !price) {
-        return toast.error('name description price and image is required');
+      if (!name && !name.trim()) {
+        return toast.error('name is required');
+      }
+
+      if (!description && !description.trim()) {
+        return toast.error('description is required');
+      }
+
+      if (!price && !price.trim()) {
+        return toast.error('price is required');
       }
 
       if (name) {
@@ -36,16 +80,9 @@ function ModalCreateMenu() {
         formData.append('image', imagePath);
       }
 
-      await menuService.createMenu(formData);
-      toast.success('create success');
-      setName('');
-      setDescription('');
-      setPrice('');
-      setImagePath(null);
-      closeEditModal();
-      getMenu();
+      sendUpdateMenu(id, formData);
     } catch (err) {
-      return toast.error(err.response?.data.message);
+      console.log(err);
     }
   };
 
@@ -58,12 +95,12 @@ function ModalCreateMenu() {
   };
 
   const clearAndClose = () => {
-    setName('');
-    setDescription('');
-    setPrice('');
-    setImagePath(null);
-    inputEl.current.value = null;
     closeEditModal();
+  };
+
+  const sendAndClose = (e) => {
+    updateMenu(e);
+    setOpenEdit(false);
   };
 
   return (
@@ -72,7 +109,7 @@ function ModalCreateMenu() {
         <div className="bg-white  h-[600px] w-[500px] flex flex-col items-center justify-center gap-4 rounded-[50px] text-black">
           <div className="flex text-black justify-between text-3xl">
             <button>
-              <p>Add menu</p>
+              <p>Edit menu</p>
             </button>
           </div>
           <div>
@@ -122,30 +159,36 @@ function ModalCreateMenu() {
             </div>
             <div className="h-[100px] w-[100px] bg-gray-700">
               <img
-                src={imagePath ? URL.createObjectURL(imagePath) : ''}
+                src={
+                  typeof imagePath === 'string' || imagePath === null
+                    ? imagePath
+                    : URL.createObjectURL(imagePath)
+                }
                 alt="pic"
                 className="h-[100px] w-[100px]"
               />
+              {console.log(imagePath)}
             </div>
           </div>
 
           <div className="flex items-center justify-between gap-5">
             <button
-              className="text-[1.5rem] text-white bg-kai h-[3rem] w-32 rounded-[15px]  font-['Aclonica'] hover:bg-dark-kai"
-              onClick={handleSubmit}
+              className="text-[1.5rem] text-white bg-kai h-[3rem] w-20 rounded-[15px]  font-['Aclonica'] hover:bg-dark-kai"
+              onClick={sendAndClose}
             >
               confirm
             </button>
             <Link to="/editmenu">
               <button
-                className="text-[1.5rem] text-white bg-kai h-[3rem] w-32 rounded-[15px]  font-['Aclonica'] hover:bg-dark-kai"
+                className="text-[1.5rem] text-white bg-kai h-[3rem] w-20 rounded-[15px]  font-['Aclonica'] hover:bg-dark-kai"
                 onClick={clear}
               >
                 clear
               </button>
             </Link>
+
             <button
-              className="text-[1.5rem] text-white bg-kai h-[3rem] w-32 rounded-[15px]  font-['Aclonica'] hover:bg-dark-kai"
+              className="text-[1.5rem] text-white bg-kai h-[3rem] w-20 rounded-[15px]  font-['Aclonica'] hover:bg-dark-kai"
               onClick={clearAndClose}
             >
               close
@@ -157,4 +200,4 @@ function ModalCreateMenu() {
   );
 }
 
-export default ModalCreateMenu;
+export default ModalEditMenu;

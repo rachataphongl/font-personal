@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useMenu } from '../contexts/MenuContext';
 function Navbar() {
   const { openLogin, openRegis, user, userLogout } = useAuth();
-  const { close } = useMenu();
+  const { openEditModal } = useMenu();
 
   const navigate = useNavigate();
 
@@ -96,11 +96,10 @@ function Navbar() {
                     <p className="text-xl">{user.username}</p>
                   </button>
                   <div className="flex justify-around">
-                    <button
-                      className="text-white bg-kai h-[3rem] w-32 rounded-[15px] m-4 font-['Aclonica'] hover:bg-dark-kai"
-                      onClick={close}
-                    >
-                      <p className="text-xl">add menu</p>
+                    <button className="text-white bg-kai h-[3rem] w-32 rounded-[15px] m-4 font-['Aclonica'] hover:bg-dark-kai">
+                      <p className="text-xl" onClick={openEditModal}>
+                        add menu
+                      </p>
                     </button>
                   </div>
                 </div>

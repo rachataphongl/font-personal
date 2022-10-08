@@ -1,11 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import * as postSerVice from '../api/postApi';
 
 const MenuContext = createContext();
-
 function MenuContextProvider({ children }) {
   const [menu, setMenu] = useState([]);
+  const [openEdit, setOpenEdit] = useState(false);
   const [closeEdit, setCloseEdit] = useState(false);
+  const [editMenu, setEditMenu] = useState({});
 
   useEffect(() => {
     try {
@@ -14,9 +16,17 @@ function MenuContextProvider({ children }) {
       console.log(err);
     }
   }, []);
+  const handleEdit = (bodyMenu) => {
+    setEditMenu(bodyMenu);
+    setOpenEdit(true);
+  };
 
-  const close = () => {
-    setCloseEdit((prev) => !prev);
+  const openEditModal = () => {
+    setCloseEdit(true);
+  };
+
+  const closeEditModal = () => {
+    setCloseEdit(false);
   };
 
   const getMenu = async () => {
@@ -27,8 +37,36 @@ function MenuContextProvider({ children }) {
 
   // const formData = new FormData
 
+  const deleteMenu = async (menuId) => {
+    const res = await postSerVice.deleteMenu(menuId);
+    getMenu();
+  };
+
+  const sendUpdateMenu = async (id, input) => {
+    try {
+      const res = await postSerVice.updateMenu(id, input);
+      getMenu();
+    } catch (err) {
+      toast.err('nonononononooooooooooo');
+    }
+  };
+
   return (
-    <MenuContext.Provider value={{ menu, closeEdit, close }}>
+    <MenuContext.Provider
+      value={{
+        menu,
+        closeEdit,
+        deleteMenu,
+        getMenu,
+        openEditModal,
+        closeEditModal,
+        handleEdit,
+        editMenu,
+        openEdit,
+        sendUpdateMenu,
+        setOpenEdit
+      }}
+    >
       {children}
     </MenuContext.Provider>
   );
