@@ -10,9 +10,9 @@ function Menu() {
   };
 
   return (
-    <div className="bg-light-kai h-100 flex p-[20vh]  w-screen items-center justify-items-start flex-col  text-white">
-      <div className="flex items-start justify-around  gap-20  px-8">
-        <div className="flex flex-wrap w-full justify-center  gap-x-5 ">
+    <div className="bg-light-kai h-100 flex py-[20vh]   w-screen items-center justify-items-start flex-col  text-white ">
+      <div className="w-screen px-[200px]">
+        <div className="grid grid-cols-2 gap-3">
           {menu.map((item, idx) => (
             <div
               className="bg-menu w-[500px] h-[150px] rounded-[25px] flex items-center justify-between p-3 mt-3"

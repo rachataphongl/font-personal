@@ -33,6 +33,7 @@ function Navbar() {
   const closeAddMenu = () => {
     setCloseButtonEdit(false);
     navigate('/');
+    toggle();
   };
 
   const logout = () => {
@@ -50,7 +51,7 @@ function Navbar() {
                 src={kai}
                 alt="kin-rao-di"
                 accept="image/*"
-                className="h-15"
+                className="h-15 object-cover"
               />
               <h1 className="text-white  font-['Aclonica'] text-5xl px-0">
                 Kin-Rao-Di
@@ -95,7 +96,7 @@ function Navbar() {
                     src={kai}
                     alt="kin-rao-di"
                     accept="image/*"
-                    className="h-15"
+                    className="h-15 object-cover"
                   />
                   <h1 className="text-white  font-['Aclonica'] text-5xl px-0">
                     Kin-Rao-Di
@@ -104,10 +105,7 @@ function Navbar() {
               </Link>
 
               <div className="flex items-center">
-                <div className="flex flex-col items-center">
-                  <button className="text-white bg-kai h-[3rem] w-32 rounded-[15px] m-4 font-['Aclonica'] hover:bg-dark-kai">
-                    <p className="text-xl">{user.username}</p>
-                  </button>
+                <div>
                   <div className="flex justify-around">
                     {closeButtonEdit ? (
                       <button
@@ -127,6 +125,11 @@ function Navbar() {
                       </Link>
                     )}
                   </div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <button className="text-white bg-kai h-[3rem] w-32 rounded-[15px] m-4 font-['Aclonica'] hover:bg-dark-kai">
+                    <p className="text-xl">{user.username}</p>
+                  </button>
                 </div>
                 <div>
                   <button
@@ -149,7 +152,7 @@ function Navbar() {
                     src={kai}
                     alt="kin-rao-di"
                     accept="image/*"
-                    className="h-15"
+                    className="h-15 object-cover"
                   />
                   <h1 className="text-white  font-['Aclonica'] text-5xl px-0">
                     Kin-Rao-Di
@@ -158,36 +161,36 @@ function Navbar() {
               </Link>
 
               <div className="flex items-center">
-                <div className="flex flex-col">
+                <div className="flex justify-between m-4 gap-5">
+                  {/*******************************/}
+                  <Link to="/">
+                    <button
+                      className={`material-symbols-outlined  text-${
+                        menuList ? 'kai' : 'white'
+                      }`}
+                      onClick={() => toggle()}
+                    >
+                      import_contacts
+                    </button>
+                  </Link>
+                  <Link to="shoppingcart">
+                    <button
+                      className={`material-symbols-outlined  text-${
+                        menuList ? 'white' : 'kai'
+                      }`}
+                      onClick={() => toggle()}
+                    >
+                      shopping_cart
+                    </button>
+                  </Link>
+                </div>
+                <div className="flex ">
                   <button
                     onClick={openRegis}
                     className="text-white bg-kai h-[3rem] w-32 rounded-[15px] m-4 font-['Aclonica'] hover:bg-dark-kai"
                   >
                     <p className="text-xl">{user.username}</p>
                   </button>
-                  <div className="flex justify-around">
-                    {/*******************************/}
-                    <Link to="/">
-                      <button
-                        className={`material-symbols-outlined  text-${
-                          menuList ? 'kai' : 'white'
-                        }`}
-                        onClick={() => toggle()}
-                      >
-                        import_contacts
-                      </button>
-                    </Link>
-                    <Link to="shoppingcart">
-                      <button
-                        className={`material-symbols-outlined  text-${
-                          menuList ? 'white' : 'kai'
-                        }`}
-                        onClick={() => toggle()}
-                      >
-                        shopping_cart
-                      </button>
-                    </Link>
-                  </div>
                 </div>
                 <div>
                   <button
@@ -209,7 +212,7 @@ function Navbar() {
                 src={kai}
                 alt="kin-rao-di"
                 accept="image/*"
-                className="h-15"
+                className="h-15 object-cover"
               />
               <h1 className="text-white  font-['Aclonica'] text-5xl px-0">
                 Kin-Rao-Di

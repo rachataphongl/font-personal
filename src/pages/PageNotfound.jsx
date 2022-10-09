@@ -9,7 +9,7 @@ function PageNotfound() {
           src={Adang}
           alt="Kra-tuk-Jit-Kra-chark-Jai"
           accept="image/*"
-          className="h-65 rounded-[50px]"
+          className="h-65 rounded-[50px] object-cover"
         />
       </div>
     </div>

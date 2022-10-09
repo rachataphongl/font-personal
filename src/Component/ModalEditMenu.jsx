@@ -12,41 +12,6 @@ function ModalEditMenu({ id }) {
   const [imagePath, setImagePath] = useState(editMenu?.imagePath);
   const inputEl = useRef();
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const formData = new FormData();
-  //     if (!name && !description && !price) {
-  //       return toast.error('name description price and image is required');
-  //     }
-
-  //     if (name) {
-  //       formData.append('name', name);
-  //     }
-
-  //     if (description) {
-  //       formData.append('description', description);
-  //     }
-
-  //     if (price) {
-  //       formData.append('price', price);
-  //     }
-
-  //     if (imagePath) {
-  //       formData.append('image', imagePath);
-  //     }
-
-  //     await menuService.createMenu(formData);
-  //     toast.success('create success');
-  //     setName('');
-  //     setDescription('');
-  //     setPrice('');
-  //     setImagePath(null);
-  //   } catch (err) {
-  //     return toast.error(err.response?.data.message);
-  //   }
-  // };
-
   const updateMenu = async (e) => {
     e.preventDefault();
     try {
@@ -164,9 +129,8 @@ function ModalEditMenu({ id }) {
                     : URL.createObjectURL(imagePath)
                 }
                 alt="pic"
-                className="h-[100px] w-[100px]"
+                className="h-[100px] w-[100px] object-cover"
               />
-              {console.log(imagePath)}
             </div>
           </div>
 

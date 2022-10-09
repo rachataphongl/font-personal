@@ -29,16 +29,16 @@ function OrderCart({ item, idx }) {
   };
 
   return (
-    <div className="flex flex-wrap w-full justify-center  gap-x-5  font-['Aclonica']">
+    <>
       {countItems > 0 ? (
-        <div className="bg-menu w-[700px] h-[150px] rounded-[25px] flex items-center justify-between p-3 mt-3">
+        <div className="bg-menu  w-[500px] h-[150px] rounded-[25px] flex items-center justify-between p-3 mt-3 ">
           <div className="flex" style={{ minWidth: 100 }}>
-            <div className="bg-white w-[100px] h-[100px] text-black rounded-[25px] flex justify-center items-center">
+            <div className=" w-[100px] h-[100px] text-black rounded-[25px] ">
               <img
                 src={item.Menu.imagePath}
                 alt="food"
                 accept="image/*"
-                className="w-[100px] h-[100px] rounded-[25px]"
+                className="w-[100px] h-[100px] rounded-[25px] object-cover"
               />
             </div>
             <div className="text-black m-5" style={{ minWidth: 100 }}>
@@ -69,7 +69,7 @@ function OrderCart({ item, idx }) {
           </div>
         </div>
       ) : null}
-    </div>
+    </>
   );
 }
 

@@ -19,7 +19,7 @@ function Home() {
             src={kaiARoi}
             alt="mama"
             accept="image/*"
-            className="w-[25rem] h-[20rem]  rounded-[50px] flex flex-shrink-0 shadow-2xl "
+            className="w-[25rem] h-[20rem]  rounded-[50px] flex flex-shrink-0 shadow-2xl object-cover"
           />
         </div>
         <div>
@@ -27,7 +27,7 @@ function Home() {
             src={mama}
             alt="mama"
             accept="image/*"
-            className="w-[25rem] h-[20rem]  rounded-[50px] flex flex-shrink-0 shadow-2xl "
+            className="w-[25rem] h-[20rem]  rounded-[50px] flex flex-shrink-0 shadow-2xl object-cover "
           />
         </div>
       </div>

@@ -124,7 +124,7 @@ function ModalCreateMenu() {
               <img
                 src={imagePath ? URL.createObjectURL(imagePath) : ''}
                 alt="pic"
-                className="h-[100px] w-[100px]"
+                className="h-[100px] w-[100px] object-cover"
               />
             </div>
           </div>
