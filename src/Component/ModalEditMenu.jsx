@@ -1,8 +1,7 @@
 import { useRef, useState } from 'react';
 import { useMenu } from '../contexts/MenuContext';
 import { toast } from 'react-toastify';
-// import * as menuService from '../api/postApi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function ModalEditMenu({ id }) {
   const { closeEditModal, editMenu, sendUpdateMenu, setOpenEdit } = useMenu();
@@ -11,6 +10,8 @@ function ModalEditMenu({ id }) {
   const [price, setPrice] = useState(editMenu?.price);
   const [imagePath, setImagePath] = useState(editMenu?.imagePath);
   const inputEl = useRef();
+
+  const navigate = useNavigate();
 
   const updateMenu = async (e) => {
     e.preventDefault();
@@ -59,7 +60,10 @@ function ModalEditMenu({ id }) {
   };
 
   const clearAndClose = () => {
-    closeEditModal();
+    console.log('aom');
+    setOpenEdit(false);
+    // closeEditModal();
+    navigate('/editmenu');
   };
 
   const sendAndClose = (e) => {
@@ -152,6 +156,7 @@ function ModalEditMenu({ id }) {
 
             <button
               className="text-[1.5rem] text-white bg-kai h-[3rem] w-20 rounded-[15px]  font-['Aclonica'] hover:bg-dark-kai"
+              type="button"
               onClick={clearAndClose}
             >
               close

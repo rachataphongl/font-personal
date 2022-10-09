@@ -10,7 +10,8 @@ function Navbar() {
   const { openEditModal, setCloseButtonEdit, closeButtonEdit, getMenu } =
     useMenu();
   const { getCart } = useCart();
-  const [menuList, setMenuList] = useState(true);
+  const [menuList, setMenuList] = useState(false);
+  // const [editList, setEditList] = useState(true);
 
   const navigate = useNavigate();
 
@@ -23,17 +24,18 @@ function Navbar() {
     }
   }, [menuList]);
 
-  const toggle = () => {
-    setMenuList((prev) => !prev);
+  const gotoAddMenu = () => {
+    setMenuList(true);
+    // console.log('menu', menuList);
+  };
+  const gotoHome = () => {
+    setMenuList(false);
+    // console.log('edit', editList);
   };
 
-  const openAddMenu = () => {
-    setCloseButtonEdit(true);
-  };
   const closeAddMenu = () => {
     setCloseButtonEdit(false);
     navigate('/');
-    toggle();
   };
 
   const logout = () => {
@@ -46,7 +48,7 @@ function Navbar() {
       {user ? (
         <>
           <div className="fixed w-full bg-black flex justify-between pr-5 min-w-[1124px] flex-wrap">
-            <button className="flex items-center gap-14" onClick={closeAddMenu}>
+            <button className="flex items-center gap-14" onClick={gotoAddMenu}>
               <img
                 src={kai}
                 alt="kin-rao-di"
@@ -88,10 +90,7 @@ function Navbar() {
           {user.role === 'admin' ? ( //*********************************** */
             <div className="fixed w-full bg-black flex justify-between pr-5 min-w-[1124px] flex-wrap">
               <Link to="/">
-                <div
-                  className="flex items-center gap-14"
-                  onClick={closeAddMenu}
-                >
+                <div className="flex items-center gap-14" onClick={gotoHome}>
                   <img
                     src={kai}
                     alt="kin-rao-di"
@@ -107,7 +106,7 @@ function Navbar() {
               <div className="flex items-center">
                 <div>
                   <div className="flex justify-around">
-                    {closeButtonEdit ? (
+                    {menuList ? (
                       <button
                         className="text-white bg-kai h-[3rem] w-32 rounded-[15px] m-4 font-['Aclonica'] hover:bg-dark-kai"
                         onClick={openEditModal}
@@ -118,7 +117,7 @@ function Navbar() {
                       <Link to="/editmenu">
                         <button
                           className="text-white bg-kai h-[3rem] w-32 rounded-[15px] m-4 font-['Aclonica'] hover:bg-dark-kai"
-                          onClick={openAddMenu}
+                          onClick={gotoAddMenu}
                         >
                           <p className="text-xl">Edit</p>
                         </button>
@@ -168,7 +167,6 @@ function Navbar() {
                       className={`material-symbols-outlined  text-${
                         menuList ? 'kai' : 'white'
                       }`}
-                      onClick={() => toggle()}
                     >
                       import_contacts
                     </button>
@@ -178,7 +176,6 @@ function Navbar() {
                       className={`material-symbols-outlined  text-${
                         menuList ? 'white' : 'kai'
                       }`}
-                      onClick={() => toggle()}
                     >
                       shopping_cart
                     </button>
