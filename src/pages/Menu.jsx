@@ -1,11 +1,11 @@
 import { useMenu } from '../contexts/MenuContext';
-import { createCart } from '../api/cartApi';
+import { createCartApi } from '../api/cartApi';
 
 function Menu() {
   const { menu, getMenu } = useMenu();
 
   const handleAddCart = async (itemId) => {
-    await createCart(itemId);
+    await createCartApi(itemId);
     getMenu();
   };
 
@@ -38,7 +38,7 @@ function Menu() {
               <div>
                 <button
                   className="text-[1.5rem] text-white bg-kai h-[3rem] w-20 rounded-[15px]  font-['Aclonica'] hover:bg-dark-kai"
-                  onClick={() => handleAddCart({ menuId: item.id })}
+                  onClick={() => handleAddCart({ menuId: item.id, amount: 1 })}
                 >
                   +
                 </button>

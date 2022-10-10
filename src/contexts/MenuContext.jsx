@@ -34,7 +34,6 @@ function MenuContextProvider({ children }) {
     const res = await postSerVice.getMenu();
     setMenu(res.data.menuItems);
   };
-  // console.log(menu);
 
   // const formData = new FormData
 
@@ -45,7 +44,7 @@ function MenuContextProvider({ children }) {
 
   const sendUpdateMenu = async (id, input) => {
     try {
-      postSerVice.updateMenu(id, input);
+      await postSerVice.updateMenu(id, input);
       getMenu();
     } catch (err) {
       toast.err('nonononononooooooooooo');

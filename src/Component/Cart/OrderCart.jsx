@@ -1,25 +1,29 @@
 import { useState } from 'react';
+import { updateAmountApi } from '../../api/cartApi';
 import { useCart } from '../../contexts/CartContext';
+import { numberWithCommas } from '../../utils/functionStatic';
 
 function OrderCart({ item, idx }) {
   const [countItems, setCountItems] = useState(1);
   const { setCart, cart, deleteCart } = useCart();
 
-  const increaseItems = () => {
+  const increaseItems = async () => {
     const newItem = { ...cart[idx], amount: cart[idx].amount + 1 };
 
     const newCart = [...cart];
     newCart.splice(idx, 1, newItem);
 
+    await updateAmountApi({ cartId: item.id, amount: item.amount + 1 });
     setCart(newCart);
   };
 
-  const decreaseItems = () => {
+  const decreaseItems = async () => {
     const newItem = { ...cart[idx], amount: cart[idx].amount - 1 };
 
     const newCart = [...cart];
     newCart.splice(idx, 1, newItem);
 
+    await updateAmountApi({ cartId: item.id, amount: item.amount - 1 });
     setCart(newCart);
   };
 
@@ -58,14 +62,14 @@ function OrderCart({ item, idx }) {
               <div className="text-black text-[1.5rem] mx-2">{item.amount}</div>
               <button
                 className="text-[1.5rem] text-white bg-kai h-[3rem] w-20 rounded-[15px]   hover:bg-dark-kai"
-                onClick={increaseItems}
+                onClick={() => increaseItems(item.id)}
               >
                 +
               </button>
             </div>
-            <div className="text-black text-[1.5rem] mx-2">{`${
+            <div className="text-black text-[1.5rem] mx-2">{`${numberWithCommas(
               item.Menu.price * item.amount
-            } B`}</div>
+            )} B`}</div>
           </div>
         </div>
       ) : null}

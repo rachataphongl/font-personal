@@ -1,5 +1,5 @@
 import kai from '../img/kai.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useMenu } from '../contexts/MenuContext';
 import { useEffect, useState } from 'react';
@@ -12,8 +12,13 @@ function Navbar() {
   const { getCart } = useCart();
   const [menuList, setMenuList] = useState(false);
   // const [editList, setEditList] = useState(true);
+  const [isCart, setIsCart] = useState(false);
+  const [isMenu, setIsMenu] = useState(true);
 
   const navigate = useNavigate();
+
+  const location = useLocation();
+  // console.log(location);
 
   useEffect(() => {
     try {
@@ -22,15 +27,13 @@ function Navbar() {
     } catch (err) {
       console.log(err);
     }
-  }, [menuList]);
+  }, [location.pathname]);
 
   const gotoAddMenu = () => {
     setMenuList(true);
-    // console.log('menu', menuList);
   };
   const gotoHome = () => {
     setMenuList(false);
-    // console.log('edit', editList);
   };
 
   const closeAddMenu = () => {
@@ -41,6 +44,15 @@ function Navbar() {
   const logout = () => {
     userLogout();
     navigate('/');
+  };
+
+  // const handleCart = () => {
+  //   setIsCart(true);
+  // };
+
+  const handleMenu = () => {
+    setIsMenu(false);
+    setIsCart(true);
   };
 
   return (
@@ -165,17 +177,19 @@ function Navbar() {
                   <Link to="/">
                     <button
                       className={`material-symbols-outlined  text-${
-                        menuList ? 'kai' : 'white'
+                        isMenu ? 'kai' : 'kai'
                       }`}
+                      onClick={handleMenu}
                     >
                       import_contacts
                     </button>
                   </Link>
-                  <Link to="shoppingcart">
+                  <Link to="/shoppingcart">
                     <button
                       className={`material-symbols-outlined  text-${
-                        menuList ? 'white' : 'kai'
+                        isCart ? 'white' : 'white'
                       }`}
+                      onClick={handleMenu}
                     >
                       shopping_cart
                     </button>

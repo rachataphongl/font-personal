@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from '../pages/Layout';
 import Home from '../pages/Home';
+import Order from '../pages/Order';
 import { useAuth } from '../contexts/AuthContext';
 import Menu from '../pages/Menu';
 import EditMenu from '../pages/adminPages/EditMenu';
@@ -17,6 +18,7 @@ function Router() {
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Menu />} />
           <Route path="shoppingcart" element={<Cart />} />
+          <Route path="order" element={<Order />} />
           {user.role === 'admin' ? (
             <>
               <Route path="/editmenu" element={<EditMenu />} />

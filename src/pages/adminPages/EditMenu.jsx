@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useMenu } from '../../contexts/MenuContext';
 import ModalCreateMenu from '../../Component/ModalCreateMenu';
 import ModalEditMenu from '../../Component/ModalEditMenu';
+import { numberWithCommas } from '../../utils/functionStatic';
 
 function EditMenu() {
   const { menu, closeEdit, deleteMenu, handleEdit, openEdit } = useMenu();
 
   const [selectId, setSelectId] = useState();
+  console.log(menu);
   return (
     <div className="bg-light-kai h-100 flex py-[20vh]   w-screen items-center justify-items-start flex-col  text-white ">
       <div className="w-screen px-[200px]">
@@ -29,7 +31,7 @@ function EditMenu() {
                 <div className="text-black m-5">
                   <div>{item.name}</div>
                   <div>{item.description}</div>
-                  <div>{`${item.price} B`}</div>
+                  <div>{`${numberWithCommas(item.price)} B`}</div>
                 </div>
               </div>
 

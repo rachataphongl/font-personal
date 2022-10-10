@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 
 function ModalEditMenu({ id }) {
-  const { closeEditModal, editMenu, sendUpdateMenu, setOpenEdit } = useMenu();
+  const { editMenu, sendUpdateMenu, setOpenEdit, getMenu } = useMenu();
   const [name, setName] = useState(editMenu?.name);
   const [description, setDescription] = useState(editMenu?.description);
   const [price, setPrice] = useState(editMenu?.price);
@@ -45,7 +45,9 @@ function ModalEditMenu({ id }) {
         formData.append('image', imagePath);
       }
 
-      sendUpdateMenu(id, formData);
+      await sendUpdateMenu(id, formData);
+      await getMenu();
+      toast.success('success edit');
     } catch (err) {
       console.log(err);
     }
@@ -62,13 +64,13 @@ function ModalEditMenu({ id }) {
   const clearAndClose = () => {
     console.log('aom');
     setOpenEdit(false);
-    // closeEditModal();
     navigate('/editmenu');
   };
 
   const sendAndClose = (e) => {
     updateMenu(e);
     setOpenEdit(false);
+    navigate('/editmenu');
   };
 
   return (
