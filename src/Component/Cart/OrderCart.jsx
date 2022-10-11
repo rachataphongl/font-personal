@@ -46,8 +46,8 @@ function OrderCart({ item, idx }) {
               />
             </div>
             <div className="text-black m-5" style={{ minWidth: 100 }}>
-              <div>{item.Menu.name}</div>
-              <div>{item.Menu.description}</div>
+              <div >{item.Menu.name}</div>
+              <div className=''>{item.Menu.description}</div>
             </div>
           </div>
 

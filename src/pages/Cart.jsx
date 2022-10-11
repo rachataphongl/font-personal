@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import OrderCart from '../Component/Cart/OrderCart';
 import { useCart } from '../contexts/CartContext';
-
+import { numberWithCommas } from '../utils/functionStatic';
 
 function Cart() {
   const { cart, totalPrice } = useCart();
@@ -11,7 +11,7 @@ function Cart() {
       <>
         {cart.length > 0 ? (
           <>
-            <div className="h-fit grid grid-cols-2  pt-[20vh] px-[200px]">
+            <div className="h-fit grid grid-cols-2  pt-[17vh] px-[200px]">
               {cart.map((item, idx) => (
                 <OrderCart item={item} key={item.id} idx={idx} />
               ))}
@@ -19,7 +19,7 @@ function Cart() {
             <div className="flex fixed left-10 bottom-10">
               <div className="flex justify-between items-center text-[2rem] text-white bg-kai h-[5rem] w-[300px] rounded-[15px] px-5 select-none">
                 <p className="text-xl">Total&nbsp;</p>
-                {totalPrice}
+                {`${numberWithCommas(totalPrice)}`}
                 &nbsp; B
               </div>
             </div>

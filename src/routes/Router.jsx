@@ -7,6 +7,7 @@ import Menu from '../pages/Menu';
 import EditMenu from '../pages/adminPages/EditMenu';
 import PageNotfound from '../pages/PageNotfound';
 import Cart from '../pages/Cart';
+import Ordered from '../pages/Ordered';
 
 function Router() {
   const { user } = useAuth();
@@ -22,6 +23,7 @@ function Router() {
           {user.role === 'admin' ? (
             <>
               <Route path="/editmenu" element={<EditMenu />} />
+              <Route path="/ordered" element={<Ordered/>} />
             </>
           ) : (
             <>

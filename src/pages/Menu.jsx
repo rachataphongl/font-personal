@@ -1,5 +1,6 @@
 import { useMenu } from '../contexts/MenuContext';
 import { createCartApi } from '../api/cartApi';
+import { numberWithCommas } from '../utils/functionStatic'
 
 function Menu() {
   const { menu, getMenu } = useMenu();
@@ -10,7 +11,7 @@ function Menu() {
   };
 
   return (
-    <div className="bg-light-kai h-100 flex py-[20vh]   w-screen items-center justify-items-start flex-col  text-white ">
+    <div className="bg-light-kai h-100 flex py-[17vh]   w-screen items-center justify-items-start flex-col  text-white ">
       <div className="w-screen px-[200px]">
         <div className="grid grid-cols-2 gap-3">
           {menu.map((item, idx) => (
@@ -25,13 +26,13 @@ function Menu() {
                     src={item.imagePath}
                     alt="food"
                     accept="image/*"
-                    className="w-[100px] h-[100px] rounded-[25px]"
+                    className="w-[100px] h-[100px] rounded-[25px] object-cover"
                   />
                 </div>
                 <div className="text-black m-5" style={{ minWidth: 100 }}>
-                  <div>{item.name}</div>
+                  <div className='font-extrabold'>{item.name}</div>
                   <div>{item.description}</div>
-                  <div>{`${item.price} B`}</div>
+                  <div className='font-extrabold'>{`${numberWithCommas(item.price)} B`}</div>
                 </div>
               </div>
 

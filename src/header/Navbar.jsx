@@ -53,6 +53,7 @@ function Navbar() {
   const handleMenu = () => {
     setIsMenu(false);
     setIsCart(true);
+    setMenuList(false);
   };
 
   return (
@@ -116,6 +117,43 @@ function Navbar() {
               </Link>
 
               <div className="flex items-center">
+                
+                <div>
+                <div className="flex justify-between m-4 gap-5">
+                  {/*******************************/}
+                  <Link to="/">
+                    <button
+                      className={`material-symbols-outlined  text-${
+                        isMenu ? 'kai' : 'kai'
+                      }`}
+                      onClick={handleMenu}
+                    >
+                      import_contacts
+                    </button>
+                  </Link>
+                  <Link to="/shoppingcart">
+                    <button
+                      className={`material-symbols-outlined  text-${
+                        isCart ? 'white' : 'white'
+                      }`}
+                      onClick={handleMenu}
+                    >
+                      shopping_cart
+                    </button>
+                  </Link>
+                </div>
+                </div>
+                <div>
+                  <Link to="/ordered">
+                  
+                <button
+                        className="text-white bg-kai h-[3rem] w-32 rounded-[15px] m-4 font-['Aclonica'] hover:bg-dark-kai"
+                        onClick={openEditModal}
+                      >
+                        <p className="text-xl">Ordered</p>
+                      </button>
+                  </Link>
+                </div>
                 <div>
                   <div className="flex justify-around">
                     {menuList ? (

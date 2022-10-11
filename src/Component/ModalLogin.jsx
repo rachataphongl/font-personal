@@ -17,6 +17,7 @@ function ModalLogin() {
     e.preventDefault();
     try {
       await login(input);
+      closeLogin()
       toast.success('login success');
     } catch (err) {
       toast.error('phone number or email or password  is invalid');
@@ -60,7 +61,7 @@ function ModalLogin() {
           <div>
             <div>Password</div>
             <input
-              type="text"
+              type="password"
               className="w-72  h-[2.5rem] rounded-[15px] px-2 bg-gray-200"
               name="password"
               value={input.password}
@@ -74,7 +75,7 @@ function ModalLogin() {
             >
               <p className="text-xl">Cancel</p>
             </button>
-            <button className="text-white bg-kai h-[3rem] w-24 rounded-[15px] m-10  hover:bg-dark-kai">
+            <button className="text-white bg-kai h-[3rem] w-24 rounded-[15px] m-10  hover:bg-dark-kai" >
               <p className="text-xl">Login</p>
             </button>
           </div>

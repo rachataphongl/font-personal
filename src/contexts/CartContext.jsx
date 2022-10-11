@@ -9,14 +9,14 @@ function CartContextProvider({ children }) {
   let totalPrice = cart
     ?.map((item) => item.amount * item.Menu.price)
     .reduce((acc, cur) => acc + cur, 0);
-  console.log(totalPrice);
+  
 
   const getCart = async () => {
     const res = await getCartApi();
     // console.log(res.data);
     setCart(res.data.items);
   };
-  console.log(cart);
+ 
 
   useEffect(() => {
     try {

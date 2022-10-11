@@ -10,7 +10,7 @@ function EditMenu() {
   const [selectId, setSelectId] = useState();
   console.log(menu);
   return (
-    <div className="bg-light-kai h-100 flex py-[20vh]   w-screen items-center justify-items-start flex-col  text-white ">
+    <div className="bg-light-kai h-100 flex py-[17vh]   w-screen items-center justify-items-start flex-col  text-white ">
       <div className="w-screen px-[200px]">
         <div className="grid grid-cols-2 gap-3">
           {menu.map((item, idx) => (
@@ -46,7 +46,7 @@ function EditMenu() {
                   Edit
                 </button>
                 <button
-                  className=" text-white bg-yellow-500 h-[3rem] w-16 rounded-[15px]  font-['Aclonica'] hover:bg-dark-kai"
+                  className=" text-white bg-yellow-500 h-[3rem] w-16 rounded-[15px]  font-['Aclonica'] hover:bg-yellow-700"
                   onClick={() => deleteMenu(item.id)}
                 >
                   delete
