@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 import Layout from '../pages/Layout';
 import Home from '../pages/Home';
 import Order from '../pages/Order';
@@ -11,19 +11,18 @@ import Ordered from '../pages/Ordered';
 
 function Router() {
   const { user } = useAuth();
-  // console.log(user);
 
   return (
     <Routes>
       {user ? (
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Menu />} />
-          <Route path="shoppingcart" element={<Cart />} />
-          <Route path="order" element={<Order />} />
+          <Route path="/shoppingcart" element={<Cart />} />
+          <Route path={`/order/:userId`} element={<Order />} />
           {user.role === 'admin' ? (
             <>
               <Route path="/editmenu" element={<EditMenu />} />
-              <Route path="/ordered" element={<Ordered/>} />
+              <Route path="/ordered" element={<Ordered />} />
             </>
           ) : (
             <>

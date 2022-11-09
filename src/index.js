@@ -9,17 +9,20 @@ import 'react-toastify/dist/ReactToastify.css';
 import AuthContextProvider from './contexts/AuthContext';
 import MenuContextProvider from './contexts/MenuContext';
 import CartContextProvider from './contexts/CartContext';
+import OrderContextProvider from './contexts/OrderContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <AuthContextProvider>
     <MenuContextProvider>
+      <OrderContextProvider>
       <CartContextProvider>
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </CartContextProvider>
+      </OrderContextProvider>
     </MenuContextProvider>
   </AuthContextProvider>
   // </React.StrictMode>

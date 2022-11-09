@@ -7,3 +7,7 @@ export const deleteCartApi = (cartId) =>
 
 export const updateAmountApi = ({ cartId, amount }) =>
   axios.patch(`/cart/updateamount`, { cartId, amount });
+
+//user
+export const getCartByUserIdApi = (id) =>
+  axios.get(`/cart/getCartByUserId/${id}`);

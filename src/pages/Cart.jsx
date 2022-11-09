@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import OrderCart from '../Component/Cart/OrderCart';
+import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { numberWithCommas } from '../utils/functionStatic';
 
 function Cart() {
   const { cart, totalPrice } = useCart();
+  const { user } = useAuth();
 
   return (
     <div className="h-100 bg-light-kai font-['Aclonica'] ">
@@ -23,7 +25,7 @@ function Cart() {
                 &nbsp; B
               </div>
             </div>
-            <Link to="/order">
+            <Link to={`/order/${user.id}`}>
               <button className="flex fixed right-[50px] bottom-10">
                 <div className="flex justify-center items-center text-[1.5rem] text-white bg-kai h-[3rem]  rounded-[15px] w-[200px]   hover:bg-dark-kai px-5">
                   <p>Checkout</p>

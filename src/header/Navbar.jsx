@@ -4,21 +4,21 @@ import { useAuth } from '../contexts/AuthContext';
 import { useMenu } from '../contexts/MenuContext';
 import { useEffect, useState } from 'react';
 import { useCart } from '../contexts/CartContext';
+import ModalCreateMenu from '../Component/ModalCreateMenu';
 
 function Navbar() {
   const { openLogin, openRegis, user, userLogout } = useAuth();
-  const { openEditModal, setCloseButtonEdit, closeButtonEdit, getMenu } =
+  const { setCloseButtonEdit, closeButtonEdit, getMenu, setIsLogin } =
     useMenu();
   const { getCart } = useCart();
   const [menuList, setMenuList] = useState(false);
-  // const [editList, setEditList] = useState(true);
   const [isCart, setIsCart] = useState(false);
   const [isMenu, setIsMenu] = useState(true);
+  const [closeEdit, setCloseEdit] = useState(false);
 
   const navigate = useNavigate();
 
   const location = useLocation();
-  // console.log(location);
 
   useEffect(() => {
     try {
@@ -44,16 +44,24 @@ function Navbar() {
   const logout = () => {
     userLogout();
     navigate('/');
+    setIsLogin(false);
   };
-
-  // const handleCart = () => {
-  //   setIsCart(true);
-  // };
 
   const handleMenu = () => {
     setIsMenu(false);
     setIsCart(true);
     setMenuList(false);
+  };
+
+  const gotoEditPath = () => {
+    setMenuList(false);
+    setIsMenu(false);
+    setIsCart(true);
+    setCloseEdit(true);
+  };
+
+  const closeEditModal = () => {
+    setCloseEdit(false);
   };
 
   return (
@@ -100,7 +108,7 @@ function Navbar() {
             </div>
           </div>
 
-          {user.role === 'admin' ? ( //*********************************** */
+          {user.role === 'admin' ? (
             <div className="fixed w-full bg-black flex justify-between pr-5 min-w-[1124px] flex-wrap">
               <Link to="/">
                 <div className="flex items-center gap-14" onClick={gotoHome}>
@@ -117,41 +125,39 @@ function Navbar() {
               </Link>
 
               <div className="flex items-center">
-                
                 <div>
-                <div className="flex justify-between m-4 gap-5">
-                  {/*******************************/}
-                  <Link to="/">
-                    <button
-                      className={`material-symbols-outlined  text-${
-                        isMenu ? 'kai' : 'kai'
-                      }`}
-                      onClick={handleMenu}
-                    >
-                      import_contacts
-                    </button>
-                  </Link>
-                  <Link to="/shoppingcart">
-                    <button
-                      className={`material-symbols-outlined  text-${
-                        isCart ? 'white' : 'white'
-                      }`}
-                      onClick={handleMenu}
-                    >
-                      shopping_cart
-                    </button>
-                  </Link>
-                </div>
+                  <div className="flex justify-between m-4 gap-5">
+                    {/*******************************/}
+                    <Link to="/">
+                      <button
+                        className={`material-symbols-outlined  text-${
+                          isMenu ? 'kai' : 'kai'
+                        }`}
+                        onClick={handleMenu}
+                      >
+                        import_contacts
+                      </button>
+                    </Link>
+                    <Link to="/shoppingcart">
+                      <button
+                        className={`material-symbols-outlined  text-${
+                          isCart ? 'white' : 'white'
+                        }`}
+                        onClick={handleMenu}
+                      >
+                        shopping_cart
+                      </button>
+                    </Link>
+                  </div>
                 </div>
                 <div>
                   <Link to="/ordered">
-                  
-                <button
-                        className="text-white bg-kai h-[3rem] w-32 rounded-[15px] m-4 font-['Aclonica'] hover:bg-dark-kai"
-                        onClick={openEditModal}
-                      >
-                        <p className="text-xl">Ordered</p>
-                      </button>
+                    <button
+                      className="text-white bg-kai h-[3rem] w-32 rounded-[15px] m-4 font-['Aclonica'] hover:bg-dark-kai"
+                      onClick={gotoEditPath}
+                    >
+                      <p className="text-xl">Ordered</p>
+                    </button>
                   </Link>
                 </div>
                 <div>
@@ -159,7 +165,7 @@ function Navbar() {
                     {menuList ? (
                       <button
                         className="text-white bg-kai h-[3rem] w-32 rounded-[15px] m-4 font-['Aclonica'] hover:bg-dark-kai"
-                        onClick={openEditModal}
+                        onClick={gotoEditPath}
                       >
                         <p className="text-xl">add menu</p>
                       </button>
@@ -189,6 +195,7 @@ function Navbar() {
                   </button>
                 </div>
               </div>
+              {closeEdit && <ModalCreateMenu />}
             </div>
           ) : (
             <div className="fixed w-full bg-black flex justify-between pr-5 min-w-[1124px] flex-wrap">
@@ -285,6 +292,8 @@ function Navbar() {
               </button>
             </div>
           </div>
+          {/* {closeEdit && <ModalCreateMenu />}
+      {openEdit && <ModalEditMenu id={selectId} />} */}
         </div>
       )}
     </>

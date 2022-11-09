@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../contexts/AuthContext';
+import { useMenu } from '../contexts/MenuContext';
 
 function ModalLogin() {
   const [input, setInput] = useState({
@@ -8,6 +10,7 @@ function ModalLogin() {
     password: ''
   });
   const { closeLogin, openRegis, openLogin, login } = useAuth();
+  const { setIsLogin } = useMenu();
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -17,7 +20,8 @@ function ModalLogin() {
     e.preventDefault();
     try {
       await login(input);
-      closeLogin()
+      setIsLogin(true);
+      closeLogin();
       toast.success('login success');
     } catch (err) {
       toast.error('phone number or email or password  is invalid');
@@ -75,7 +79,8 @@ function ModalLogin() {
             >
               <p className="text-xl">Cancel</p>
             </button>
-            <button className="text-white bg-kai h-[3rem] w-24 rounded-[15px] m-10  hover:bg-dark-kai" >
+
+            <button className="text-white bg-kai h-[3rem] w-24 rounded-[15px] m-10  hover:bg-dark-kai">
               <p className="text-xl">Login</p>
             </button>
           </div>

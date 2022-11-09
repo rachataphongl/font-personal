@@ -16,8 +16,12 @@ function AuthContextProvider({ children }) {
   }, []);
 
   const getMe = async () => {
-    const res = await authService.getMe();
-    setUser(res.data.user);
+    try {
+      const res = await authService.getMe();
+      setUser(res.data.user);
+    } catch (err) {
+      console.log(err);
+    }
   };
   // console.log(user);
 
@@ -78,27 +82,3 @@ export const useAuth = () => {
 };
 
 export default AuthContextProvider;
-
-// import { createContext, useContext, useState } from 'react';
-
-// const AuthContext = createContext();
-
-// function AuthContextProvider({ children }) {
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   const toggleModal = () => {
-//     setIsOpen((prev) => !prev);
-//   };
-
-//   return (
-//     <AuthContext.Provider value={{ isOpen, toggleModal }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// }
-
-// export default AuthContextProvider;
-
-// export const useAuth = () => {
-//   return useContext(AuthContext);
-// };

@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { validateRegister } from '../validations/userValidate';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+import { useMenu } from '../contexts/MenuContext';
 
 function ModalRegister() {
   const { isOpenRegis, closeRegis, openLogin, register } = useAuth();
+  const { setIsLogin } = useMenu();
   const [input, setInput] = useState({
     firstName: '',
     lastName: '',
@@ -32,8 +35,7 @@ function ModalRegister() {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
     const { error } = validateRegister(input);
-    // console.log(value);
-    // console.dir(error);
+    setIsLogin(true);
     if (error) {
       return toast.error(error.message);
     }
@@ -146,33 +148,7 @@ function ModalRegister() {
               />
             </div>
           </div>
-          <div className="flex items-center justify-between gap-16">
-            {/* <div>
-            <div>role</div>
-            <div className="flex gap-10">
-              <div className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  id="customer"
-                  name="role"
-                  value="customer"
-                  className="w-5  h-[2rem] rounded-[15px] px-2 bg-gray-200 "
-                />
-                <span for="customer">customer</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  id="rider"
-                  name="role"
-                  value="rider"
-                  className="w-5  h-[2rem] rounded-[15px] px-2 bg-gray-200 "
-                />
-                <span for="rider">rider</span>
-              </div>
-            </div>
-          </div> */}
-          </div>
+          <div className="flex items-center justify-between gap-16"></div>
           <div>
             <button
               onClick={closeRegis}
@@ -180,6 +156,7 @@ function ModalRegister() {
             >
               <p className="text-xl">Cancel</p>
             </button>
+
             <button className="text-white bg-kai h-[3rem] w-24 rounded-[15px] m-10  hover:bg-dark-kai">
               <p className="text-xl">Sign Up</p>
             </button>

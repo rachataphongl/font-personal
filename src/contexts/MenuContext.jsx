@@ -6,9 +6,10 @@ const MenuContext = createContext();
 function MenuContextProvider({ children }) {
   const [menu, setMenu] = useState([]);
   const [openEdit, setOpenEdit] = useState(false);
-  const [closeEdit, setCloseEdit] = useState(false);
+
   const [editMenu, setEditMenu] = useState({});
   const [closeButtonEdit, setCloseButtonEdit] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
     try {
@@ -16,26 +17,22 @@ function MenuContextProvider({ children }) {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+    getMenu();
+  }, [isLogin]);
+
   const handleEdit = (bodyMenu) => {
     setEditMenu(bodyMenu);
     setOpenEdit(true);
   };
 
-  const openEditModal = () => {
-    setCloseEdit(true);
-  };
-
-  const closeEditModal = () => {
-    setCloseEdit(false);
-  };
-
   const getMenu = async () => {
-    const res = await postSerVice.getMenu();
-    setMenu(res.data.menuItems);
+    try {
+      const res = await postSerVice.getMenu();
+      return setMenu(res.data.menuItems); /*********** */
+    } catch (err) {
+      console.log(err);
+    }
   };
-
-  // const formData = new FormData
 
   const deleteMenu = async (menuId) => {
     await postSerVice.deleteMenu(menuId);
@@ -47,7 +44,7 @@ function MenuContextProvider({ children }) {
       await postSerVice.updateMenu(id, input);
       getMenu();
     } catch (err) {
-      toast.err('nonononononooooooooooo');
+      toast.error('nonononononooooooooooo');
     }
   };
 
@@ -55,18 +52,16 @@ function MenuContextProvider({ children }) {
     <MenuContext.Provider
       value={{
         menu,
-        closeEdit,
         deleteMenu,
         getMenu,
-        openEditModal,
-        closeEditModal,
         handleEdit,
         editMenu,
         openEdit,
         sendUpdateMenu,
         setOpenEdit,
         closeButtonEdit,
-        setCloseButtonEdit
+        setCloseButtonEdit,
+        setIsLogin
       }}
     >
       {children}
